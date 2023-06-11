@@ -15,13 +15,17 @@ class Observer {
     }
 }
 
+// Observer Interface
 interface ObserverI<T> {
     public void update(T data);
 }
 
+// Base Subject Class
 class BaseSubject<T> {
+    // Templated State
     protected T state;
 
+    // Observers
     protected ArrayList<ObserverI<T>> observers;
 
     public BaseSubject() {
@@ -32,6 +36,7 @@ class BaseSubject<T> {
         observers.add(observer);
     }
 
+    // Notify all observers
     protected void notifyObservers() {
         for (ObserverI<T> observer: observers) {
             observer.update(state);
@@ -39,6 +44,7 @@ class BaseSubject<T> {
     }
 }
 
+// Concrete Subject Class
 class MyPrompt extends BaseSubject<String> {
     public MyPrompt() {
         super();
@@ -61,6 +67,7 @@ class MyPrompt extends BaseSubject<String> {
     }
 }
 
+// Concrete Observers
 class MyTestObserver implements ObserverI<String> {
     public void update(String data) {
         System.out.println("MyTestObserver: " + data);
@@ -102,14 +109,6 @@ class CommandAnalyzeObserver implements ObserverI<String> {
                         wordCount.put(word, 1);
                     }
                 });
-
-//        for (String word: words) {
-//            if (wordCount.containsKey(word)) {
-//                wordCount.put(word, wordCount.get(word) + 1);
-//            } else {
-//                wordCount.put(word, 1);
-//            }
-//        }
 
         System.out.println("CommandAnalyzeObserver: " + wordCount);
     }
